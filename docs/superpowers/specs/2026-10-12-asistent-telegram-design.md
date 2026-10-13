@@ -61,6 +61,7 @@ mister-o-template-telegram/
 │   ├── memory-flush.ts
 │   ├── activity-log.ts
 │   ├── dream-due.ts
+│   ├── token.ts
 │   └── lib/cai.ts
 ├── .claude/
 │   ├── settings.json
@@ -127,7 +128,7 @@ Toate rulate cu `bun scripts/<nume>.ts`, aceeași comandă pe ambele sisteme.
 | `session-inject.ts` | UserPromptSubmit | O dată pe oră injectează SOUL, USER, MEMORY și memoria de azi. Blocarea pe oră folosește un fișier în folderul temporar al sistemului. |
 | `loop-detector.ts` | PreToolUse | Blochează un apel identic repetat de prea multe ori într-o oră. Pragul coboară de la 150 la 30, fiindcă nu mai există cronul de 1 minut care repeta legitim apeluri. |
 | `memory-flush.ts` | PreCompact | Scrie un rezumat al ultimelor mesaje în memoria zilnică, cel mult o dată la 10 minute. Folderul de sesiuni se calculează după regula de nume a Claude Code pe sistemul curent. Fără basic-memory. |
-| `activity-log.ts` | Stop | Jurnal de activitate în `logs/activity.log`, în folderul agentului (ignorat de git). |
+| `activity-log.ts` | Stop | Jurnal de activitate în `logs/activity.ndjson`, în folderul agentului (ignorat de git). |
 | `dream-due.ts` | apelat din heartbeat | Citește `.last-dream` și `.dream-anuntat`. Dacă au trecut 5 zile de la ultimul dream și nu s-a anunțat încă, afișează `ANUNTA`; altfel nu afișează nimic. |
 
 ### Heartbeat
