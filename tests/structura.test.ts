@@ -98,7 +98,7 @@ describe("scripturile de pornire", () => {
     }
   });
 
-  test("porneste.sh e executabil", () => {
+  test.skipIf(process.platform === "win32")("porneste.sh e executabil", () => {
     expect(statSync(join(RADACINA, "porneste.sh")).mode & 0o111).not.toBe(0);
   });
 });

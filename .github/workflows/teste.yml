@@ -1,0 +1,95 @@
+name: teste
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  teste:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Suita de teste
+        run: bun test
+
+      - name: Claude Code în terminal (doar versiunea, fără autentificare)
+        run: npm install -g @anthropic-ai/claude-code && claude --version
+
+      - name: Token din clipboard (Windows)
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          $env:TELEGRAM_STATE_DIR = Join-Path $env:RUNNER_TEMP "stare-token"
+          Set-Clipboard -Value "  123456789:AAHfiqksKZ8abcdefghijklmnopqrstuvwxyz  "
+          bun scripts/token.ts
+          if ($LASTEXITCODE -ne 0) { throw "token.ts a esuat" }
+          $env_ = Get-Content (Join-Path $env:TELEGRAM_STATE_DIR ".env") -Raw
+          if ($env_ -notmatch "^TELEGRAM_BOT_TOKEN=123456789:AAH") { throw ".env gresit" }
+          $clip = Get-Clipboard -Raw
+          if ($clip -and $clip.Trim()) { throw "clipboard-ul nu a fost golit: [$clip]" }
+          Set-Clipboard -Value "text oarecare"
+          $env:TELEGRAM_STATE_DIR = Join-Path $env:RUNNER_TEMP "stare-gresit"
+          bun scripts/token.ts
+          if ($LASTEXITCODE -ne 1) { throw "textul gresit trebuia refuzat" }
+          if (Test-Path (Join-Path $env:TELEGRAM_STATE_DIR ".env")) { throw "nu trebuia scris nimic" }
+          exit 0
+
+      - name: Token din clipboard (Mac)
+        if: runner.os == 'macOS'
+        run: |
+          export TELEGRAM_STATE_DIR="$RUNNER_TEMP/stare-token"
+          printf '  123456789:AAHfiqksKZ8abcdefghijklmnopqrstuvwxyz  ' | pbcopy
+          bun scripts/token.ts
+          grep -q '^TELEGRAM_BOT_TOKEN=123456789:AAH' "$TELEGRAM_STATE_DIR/.env"
+          test -z "$(pbpaste | tr -d '[:space:]')"
+          printf 'text oarecare' | pbcopy
+          export TELEGRAM_STATE_DIR="$RUNNER_TEMP/stare-gresit"
+          if bun scripts/token.ts; then echo "textul gresit trebuia refuzat"; exit 1; fi
+          test ! -e "$TELEGRAM_STATE_DIR/.env"
+
+      - name: Pornire fără token (Windows)
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          $env:TELEGRAM_STATE_DIR = Join-Path $env:RUNNER_TEMP "stare-goala"
+          $iesire = powershell -ExecutionPolicy Bypass -File .\porneste.ps1 2>&1 | Out-String
+          Write-Host $iesire
+          if ($LASTEXITCODE -ne 1) { throw "porneste.ps1 trebuia sa iasa cu 1" }
+          if ($iesire -notmatch "Nu găsesc tokenul botului") { throw "mesaj gresit sau diacritice stricate" }
+          exit 0
+
+      - name: Pornire fără token (Mac)
+        if: runner.os == 'macOS'
+        run: |
+          export TELEGRAM_STATE_DIR="$RUNNER_TEMP/stare-goala"
+          set +e
+          iesire=$(./porneste.sh 2>&1); cod=$?
+          echo "$iesire"
+          test $cod -eq 1
+          echo "$iesire" | grep -q "Nu găsesc tokenul botului"
+
+      - name: Hook rulat prin shell-ul implicit, cu calea relativă din settings.json
+        shell: bash
+        run: |
+          echo '{"session_id":"ci","tool_name":"Bash","tool_input":{"command":"ls"}}' | bun scripts/loop-detector.ts
+          echo '{}' | bun scripts/session-inject.ts | grep -q "CONTEXT DE MEMORIE"
+          echo '{"session_id":"ci","last_assistant_message":"gata"}' | bun scripts/activity-log.ts
+          grep -q '"raspuns_agent":"gata"' logs/activity.ndjson
+
+      - name: Același hook prin PowerShell (Claude Code fără Git Bash)
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          '{"session_id":"ci2","tool_name":"Bash","tool_input":{"command":"ls"}}' | bun scripts/loop-detector.ts
+          if ($LASTEXITCODE -ne 0) { throw "loop-detector a esuat in PowerShell" }
+          '{}' | bun scripts/dream-due.ts
+          if ($LASTEXITCODE -ne 0) { throw "dream-due a esuat in PowerShell" }
+          exit 0
