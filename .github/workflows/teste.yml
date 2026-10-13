@@ -63,7 +63,10 @@ jobs:
           $iesire = powershell -ExecutionPolicy Bypass -File .\porneste.ps1 2>&1 | Out-String
           Write-Host $iesire
           if ($LASTEXITCODE -ne 1) { throw "porneste.ps1 trebuia sa iasa cu 1" }
-          if ($iesire -notmatch "Nu găsesc tokenul botului") { throw "mesaj gresit sau diacritice stricate" }
+          # Textul asteptat e construit din coduri de caracter: pasul asta ruleaza dintr-un .ps1 fara BOM,
+          # iar PowerShell 5.1 ar strica litera a-cu-caciula scrisa direct aici.
+          $asteptat = "Nu g" + [char]0x0103 + "sesc tokenul botului"
+          if (-not $iesire.Contains($asteptat)) { throw "mesaj gresit sau diacritice stricate" }
           exit 0
 
       - name: Pornire fără token (Mac)
