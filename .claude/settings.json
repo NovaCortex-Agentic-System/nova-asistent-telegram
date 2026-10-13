@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun scripts/*)",
+      "Bash(bun test)",
+      "Bash(bun test *)"
+    ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      { "hooks": [{ "type": "command", "command": "bun scripts/session-inject.ts" }] }
+    ],
+    "PreToolUse": [
+      { "hooks": [{ "type": "command", "command": "bun scripts/loop-detector.ts" }] }
+    ],
+    "Stop": [
+      { "hooks": [{ "type": "command", "command": "bun scripts/activity-log.ts" }] }
+    ],
+    "PreCompact": [
+      { "hooks": [{ "type": "command", "command": "bun scripts/memory-flush.ts" }] }
+    ]
+  }
+}

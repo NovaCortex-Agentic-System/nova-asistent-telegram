@@ -93,7 +93,7 @@ Dacă sesiunea pornește dar Channels nu se activează, utilizatorul vede mesaju
 ### Telegram prin Channels
 
 - Mesajele intră direct în sesiune. Pe Telegram apare indicatorul de scriere cât lucrează agentul.
-- Regula din `CLAUDE.md` rămâne: înainte de orice sarcină primită pe Telegram, agentul trimite o confirmare scurtă. Folosește `reply`, apoi `edit_message` pe același mesaj ca să-l transforme în rezultat.
+- Regula din `CLAUDE.md` rămâne: înainte de orice sarcină primită pe Telegram, agentul trimite o confirmare scurtă. Folosește `reply`; la sarcini lungi poate folosi `edit_message` pe confirmare pentru progres, dar rezultatul final pleacă într-un mesaj nou, fiindcă editările nu dau notificare pe telefon (corectat la implementare, după instrucțiunile pluginului).
 - Pozele primite ajung în inbox-ul din folderul de stare și agentul le citește cu `Read`. Fișierele produse pleacă prin `reply` cu `files`.
 - Botul nu are istoric. Dacă agentul are nevoie de context vechi, îl caută în `memory/`, nu pe Telegram.
 

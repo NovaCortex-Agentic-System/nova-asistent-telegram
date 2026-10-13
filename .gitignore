@@ -1,0 +1,24 @@
+# Secrete (tokenul botului NU stă aici, ci în ~/.claude/channels/<nume-agent>/.env)
+.env
+.credentials/
+
+# Generate de agent
+memory/*
+!memory/.gitkeep
+logs/
+data/
+.last-dream
+.dream-anuntat
+*.dream-backup-*
+
+# Sisteme
+.DS_Store
+Thumbs.db
+
+# Claude Code
+.claude/scheduled_tasks.lock
+.claude/settings.local.json
+.claude/worktrees/
+
+# Bun
+node_modules/
