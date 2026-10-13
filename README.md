@@ -44,7 +44,9 @@ Channels e în research preview. Pe planurile Team și Enterprise trebuie activa
 bun test
 ```
 
-Suita a fost rulată pe macOS. Pe Windows nu a fost încă testată.
+La fiecare push, GitHub Actions rulează testele pe o mașină Windows și pe una Mac (`.github/workflows/teste.yml`). Pe lângă suită, verifică pe sistemul real: preluarea tokenului din clipboard și golirea lui, pornirea fără token (inclusiv diacriticele din mesajele PowerShell) și hook-urile rulate prin bash și prin PowerShell.
+
+Ce nu se poate testa automat: o sesiune completă cu un bot adevărat (pairing, mesaje, butoanele de permisiune). Asta s-a verificat doar parțial, pe Mac.
 
 ## Proveniență
 

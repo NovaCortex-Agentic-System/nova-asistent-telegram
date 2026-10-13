@@ -7,7 +7,7 @@ Ghidul are trei părți:
 2. [Folosirea de zi cu zi](#partea-2-folosirea-de-zi-cu-zi)
 3. [Ce merge prost](#partea-3-ce-merge-prost), organizată după ce vezi pe ecran
 
-> Template-ul a fost testat pe Mac. Pe Windows nu a fost încă testat. Dacă ești pe Windows și ceva nu merge, notează exact ce mesaj vezi.
+> Scripturile agentului sunt testate automat pe Windows și pe Mac. Dacă ceva nu merge, notează exact ce mesaj vezi și la ce pas, ca să-l poți căuta în [Partea 3](#partea-3-ce-merge-prost).
 
 ---
 
