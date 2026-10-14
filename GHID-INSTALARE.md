@@ -121,7 +121,7 @@ Dacă ambele merg, agentul e gata.
 
 **Dream.** O dată la 5 zile, agentul îți scrie pe Telegram că e timpul să-i consolidezi memoria. Nu o face singur. Când vrei, îi scrii „rulează dream”. Îți trimite la final ce a schimbat.
 
-**Când îl corectezi.** Spune-i direct ce n-a fost bine („nu mai face asta”). Notează corectura în memorie. Dacă aceeași corectură apare de trei ori, îți propune să o treacă în regulile lui permanente, dar doar cu acordul tău.
+**Când îl corectezi.** Spune-i direct ce n-a fost bine („nu mai face asta”, „asta nu era important”). Dacă e despre o sarcină care se repetă (emailurile, rezumatul zilei), scrie o regulă în fișierul de lecții al sarcinii, în folderul `invatat/`, și o aplică de la următoarea rulare. Îți confirmă într-un rând ce a notat. Corecturile generale merg în memorie. Dacă aceeași corectură apare de trei ori, îți propune să o treacă în regulile lui permanente, dar doar cu acordul tău.
 
 ---
 

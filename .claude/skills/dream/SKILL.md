@@ -28,6 +28,7 @@ Scop: să înțelegi ce e deja în memorie înainte să schimbi ceva.
 1. Citește `MEMORY.md`. Notează secțiunile, numărul de linii și intrările care par învechite (date relative ca „ieri” sau „săptămâna trecută” fără o dată fixă).
 2. Listează fișierele din `memory/` și citește-le pe cele din ultimele 7 zile, plus pe cele mai noi decât ultimul dream.
 3. Citește `DECISIONS.md` și `GROUND-TRUTH.md`, ca să nu contrazici deciziile permanente.
+4. Citește fișierele din `invatat/` (lecțiile pe sarcină).
 
 **Prima rulare:** înainte de orice modificare, fă o copie a `MEMORY.md` în `memory/MEMORY-copie-{data de azi}.md`.
 
@@ -59,6 +60,7 @@ Reguli:
 - **Contradicțiile** se rezolvă în favoarea informației mai noi. Păstrezi o notă scurtă: „(înlocuiește ce era valabil până la AAAA-LL-ZZ)”.
 - **Fără dubluri.** Dacă ceva există deja, îl completezi, nu-l repeți.
 - **Deciziile permanente** nu le muți din `DECISIONS.md`. Dacă găsești o decizie nouă de nivelul ăla, o propui omului, nu o scrii singur.
+- **Lecțiile pe sarcină.** O corectură găsită în culegere care privește o sarcină repetată și lipsește din `invatat/<nume>.md` o adaugi acolo ca regulă, nu în `MEMORY.md`. În fișierele din `invatat/` unești regulile duplicate și le ștergi pe cele marcate ca înlocuite. Nu inventezi reguli noi și nu ștergi reguli valabile.
 - **Tiparul de 3 feedback-uri** pe același subiect: propui omului o completare în `SOUL.md`, nu o scrii singur.
 
 ---

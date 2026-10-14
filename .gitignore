@@ -18,6 +18,8 @@
 # Generate de agent
 memory/*
 !memory/.gitkeep
+invatat/*
+!invatat/.gitkeep
 logs/
 data/
 .last-dream

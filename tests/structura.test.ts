@@ -27,8 +27,8 @@ describe("settings.json", () => {
 
   test("scrierea în memorie e aprobată din start, restul nu", () => {
     const permise: string[] = setari.permissions.allow;
-    for (const regula of ["Edit(/memory/**)", "Edit(/MEMORY.md)", "Edit(/GROUND-TRUTH.md)"]) expect(permise).toContain(regula);
-    expect(permise.filter((r) => r.startsWith("Edit(") || r.startsWith("Write("))).toHaveLength(3);
+    for (const regula of ["Edit(/memory/**)", "Edit(/invatat/**)", "Edit(/MEMORY.md)", "Edit(/GROUND-TRUTH.md)"]) expect(permise).toContain(regula);
+    expect(permise.filter((r) => r.startsWith("Edit(") || r.startsWith("Write("))).toHaveLength(4);
     // Pe Windows agentul rulează scripturile cu unealta PowerShell, nu cu Bash.
     for (const regula of ["Bash(bun scripts/*)", "PowerShell(bun scripts/*)"]) expect(permise).toContain(regula);
     // Fără ele, fiecare răspuns pe Telegram cere aprobare.
@@ -67,6 +67,29 @@ describe("config.json și heartbeat-ul", () => {
     expect(claude).toContain("--anuntat");
     expect(claude).toContain("Nu porni dream singur");
     expect(citeste("sabloane/HEARTBEAT.md")).not.toContain("dream-due");
+  });
+});
+
+describe("lecțiile pe sarcină", () => {
+  test("CLAUDE.md cere citirea lecțiilor înainte de sarcină și învățarea doar de la om", () => {
+    const claude = citeste("CLAUDE.md");
+    expect(claude).toContain("## Lecții pe sarcină");
+    expect(claude).toContain("invatat/<nume>.md");
+    expect(claude).toContain("Înainte de fiecare rulare");
+    expect(claude).toContain("Învață doar de la omul tău.");
+  });
+
+  test("invatat/ e ignorat de git, cu excepția .gitkeep", () => {
+    const ignorate = citeste(".gitignore").split(/\r?\n/);
+    expect(ignorate).toContain("invatat/*");
+    expect(ignorate).toContain("!invatat/.gitkeep");
+    expect(existsSync(join(RADACINA, "invatat", ".gitkeep"))).toBe(true);
+  });
+
+  test("sarcinile din șablonul HEARTBEAT.md au titlu îngroșat, din care vine fișierul de lecții", () => {
+    const sarcini = citeste("sabloane/HEARTBEAT.md").split(/\r?\n/).filter((l) => l.includes("- [ ]"));
+    expect(sarcini.length).toBeGreaterThan(0);
+    for (const s of sarcini) expect(s).toMatch(/- \[ \] \*\*[^*]+\*\*/);
   });
 });
 

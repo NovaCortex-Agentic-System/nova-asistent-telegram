@@ -16,6 +16,7 @@
       "mcp__plugin_telegram_telegram__edit_message",
       "mcp__plugin_telegram_telegram__download_attachment",
       "Edit(/memory/**)",
+      "Edit(/invatat/**)",
       "Edit(/MEMORY.md)",
       "Edit(/GROUND-TRUTH.md)"
     ]

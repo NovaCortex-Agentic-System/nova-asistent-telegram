@@ -5,8 +5,10 @@ Aici sunt doar sarcinile tale. Cele de bază (memoria zilnică, anunțul de drea
 
 ## Sarcinile tale
 
-<!-- - [ ] Verifică starea serviciilor din GROUND-TRUTH.md -->
-<!-- - [ ] Verifică emailul și trimite pe Telegram doar ce e important -->
+Fiecare sarcină începe cu un titlu îngroșat. Din primul lui cuvânt vine fișierul de lecții al sarcinii (`**Emailuri...**` → `invatat/emailuri.md`), unde agentul notează ce corectezi la rezultatele ei.
+
+<!-- - [ ] **Servicii.** Verifică starea serviciilor din GROUND-TRUTH.md -->
+<!-- - [ ] **Emailuri.** Verifică emailul și trimite pe Telegram doar ce e important -->
 
 ---
 

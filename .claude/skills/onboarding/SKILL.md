@@ -178,9 +178,9 @@ Scrie `TOOLS.md` păstrând structura existentă.
 
 Explică: „Cât timp e pornit, agentul face o rundă de verificări la fiecare 30 de minute, după lista din HEARTBEAT.md.”
 
-Întreabă ce vrea să fie verificat la fiecare rundă. Adaugă răspunsurile la „Sarcinile tale”. Sarcinile de bază (memoria zilnică, anunțul de dream) nu intră aici: le face agentul oricum, după `CLAUDE.md`.
+Întreabă ce vrea să fie verificat la fiecare rundă. Adaugă răspunsurile la „Sarcinile tale”, fiecare cu un titlu îngroșat scurt la început (de exemplu `**Emailuri.**`): din el vine fișierul de lecții al sarcinii, `invatat/emailuri.md`. Sarcinile de bază (memoria zilnică, anunțul de dream) nu intră aici: le face agentul oricum, după `CLAUDE.md`.
 
-Sarcinile legate de o oră anume (de exemplu „rezumatul zilei la 19:30”) nu le pui în `HEARTBEAT.md`, ci ca intrare separată în `config.json`, cu câmpul `cron` (expresie cron cu ora locală, de exemplu `30 19 * * *`) și un `prompt` care spune exact ce are de făcut. Așa rulează la ora fixă, nu „la primul heartbeat după ora X”.
+Sarcinile legate de o oră anume (de exemplu „rezumatul zilei la 19:30”) nu le pui în `HEARTBEAT.md`, ci ca intrare separată în `config.json`, cu câmpul `cron` (expresie cron cu ora locală, de exemplu `30 19 * * *`), un `nume` scurt (de exemplu `rezumatul`) și un `prompt` care spune exact ce are de făcut și începe cu „Citește invatat/<nume>.md, dacă există, și aplică regulile de acolo.” Așa rulează la ora fixă, nu „la primul heartbeat după ora X”.
 
 ---
 
@@ -265,4 +265,5 @@ Dacă un test pică, deschide `GHID-INSTALARE.md`, secțiunea „Ce merge prost�
    - agentul {nume} pe Telegram, cu memorie zilnică și pe termen lung
    - heartbeat la 30 de minute cât e pornit
    - anunț pe Telegram la 5 zile pentru dream, pe care îl pornește doar el
+   - învățare din corecturi: când îi spune ce n-a fost bine la o sarcină, agentul scrie o regulă în `invatat/` și o aplică de data viitoare
    - pornire cu `porneste.sh` sau `porneste.ps1`; închiderea terminalului oprește agentul
