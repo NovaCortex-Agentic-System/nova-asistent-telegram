@@ -7,6 +7,10 @@ import { RADACINA } from "./ajutor";
 
 const citeste = (cale: string) => readFileSync(join(RADACINA, cale), "utf8");
 
+// O copie privată a agentului (de exemplu cu backup pe un repo privat) urmărește intenționat
+// fișierele personale în git; o marchează în .gitignore cu „Varianta privată”.
+const variantaPrivata = citeste(".gitignore").includes("Varianta privată");
+
 function fisiere(dir: string): string[] {
   return readdirSync(dir).flatMap((nume) => {
     if ([".git", "node_modules", "docs"].includes(nume)) return [];
@@ -95,7 +99,7 @@ describe("lecțiile pe sarcină", () => {
     expect(claude).toContain("Învață doar de la omul tău.");
   });
 
-  test("invatat/ e ignorat de git, cu excepția .gitkeep", () => {
+  test.skipIf(variantaPrivata)("invatat/ e ignorat de git, cu excepția .gitkeep", () => {
     const ignorate = citeste(".gitignore").split(/\r?\n/);
     expect(ignorate).toContain("invatat/*");
     expect(ignorate).toContain("!invatat/.gitkeep");
@@ -113,7 +117,7 @@ describe("fișierele personale", () => {
   const sabloane = readdirSync(join(RADACINA, "sabloane")).sort();
   const ignorate = citeste(".gitignore").split(/\r?\n/).filter((l) => /^\/[^*]+$/.test(l)).map((l) => l.slice(1)).sort();
 
-  test("fiecare șablon are copia personală ignorată de git, și invers", () => {
+  test.skipIf(variantaPrivata)("fiecare șablon are copia personală ignorată de git, și invers", () => {
     expect(sabloane.length).toBe(10);
     expect(ignorate).toEqual(sabloane);
   });
