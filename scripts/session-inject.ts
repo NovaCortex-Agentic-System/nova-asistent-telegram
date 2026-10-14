@@ -6,6 +6,11 @@ import { join } from "node:path";
 import { agentDir, azi, cheieOra, numeAgent, tempDir } from "./lib/cai";
 
 const dir = agentDir();
+
+// Înainte de onboarding, fișierele conțin doar textul din șablon: nu are rost să-l injectăm.
+const identitate = join(dir, "IDENTITY.md");
+if (existsSync(identitate) && readFileSync(identitate, "utf8").includes("[Numele agentului]")) process.exit(0);
+
 const blocare = join(tempDir(), `agent-inject-${numeAgent(dir)}-${cheieOra()}.lock`);
 
 if (existsSync(blocare)) process.exit(0);

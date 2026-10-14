@@ -1,23 +1,55 @@
 {
+  "autoMemoryEnabled": false,
   "permissions": {
     "allow": [
       "Bash(bun scripts/*)",
       "Bash(bun test)",
-      "Bash(bun test *)"
+      "Bash(bun test *)",
+      "Edit(/memory/**)",
+      "Edit(/MEMORY.md)",
+      "Edit(/GROUND-TRUTH.md)"
     ]
   },
   "hooks": {
     "UserPromptSubmit": [
-      { "hooks": [{ "type": "command", "command": "bun scripts/session-inject.ts" }] }
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun scripts/session-inject.ts"
+          }
+        ]
+      }
     ],
     "PreToolUse": [
-      { "hooks": [{ "type": "command", "command": "bun scripts/loop-detector.ts" }] }
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun scripts/loop-detector.ts"
+          }
+        ]
+      }
     ],
     "Stop": [
-      { "hooks": [{ "type": "command", "command": "bun scripts/activity-log.ts" }] }
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun scripts/activity-log.ts"
+          }
+        ]
+      }
     ],
     "PreCompact": [
-      { "hooks": [{ "type": "command", "command": "bun scripts/memory-flush.ts" }] }
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun scripts/memory-flush.ts"
+          }
+        ]
+      }
     ]
   }
 }

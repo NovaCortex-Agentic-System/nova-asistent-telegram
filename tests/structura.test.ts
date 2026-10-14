@@ -21,6 +21,16 @@ describe("settings.json", () => {
     grupuri.flatMap((g: any) => g.hooks.map((h: any) => h.command)),
   );
 
+  test("memoria automată a Claude Code e oprită, ca să nu concureze cu memory/ a agentului", () => {
+    expect(setari.autoMemoryEnabled).toBe(false);
+  });
+
+  test("scrierea în memorie e aprobată din start, restul nu", () => {
+    const permise: string[] = setari.permissions.allow;
+    for (const regula of ["Edit(/memory/**)", "Edit(/MEMORY.md)", "Edit(/GROUND-TRUTH.md)"]) expect(permise).toContain(regula);
+    expect(permise.filter((r) => r.startsWith("Edit(") || r.startsWith("Write("))).toHaveLength(3);
+  });
+
   test("are cele patru hook-uri", () => {
     expect(Object.keys(setari.hooks).sort()).toEqual(["PreCompact", "PreToolUse", "Stop", "UserPromptSubmit"]);
   });
@@ -92,7 +102,10 @@ describe("scripturile de pornire", () => {
   test("ambele pornesc pluginul Telegram cu folderul de stare al agentului", () => {
     for (const script of ["porneste.sh", "porneste.ps1"]) {
       const continut = citeste(script);
-      expect(continut).toContain("claude --channels plugin:telegram@claude-plugins-official");
+      expect(continut).toContain("--channels plugin:telegram@claude-plugins-official");
+      // --channels primește mai multe valori: un prompt pus după el e luat drept canal și pornirea pică.
+      const linie = continut.split("\n").find((l) => /^\s*(exec\s+)?claude\s/.test(l)) ?? "";
+      expect(linie).toMatch(/--channels plugin:telegram@claude-plugins-official\s*$/);
       expect(continut).toContain("TELEGRAM_STATE_DIR");
       expect(continut).toContain("bun scripts/token.ts --exista");
     }

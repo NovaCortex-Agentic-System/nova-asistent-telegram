@@ -23,4 +23,6 @@ $env:TELEGRAM_STATE_DIR = (bun scripts/token.ts --cale)
 
 Write-Host "Pornesc agentul. Închiderea terminalului îl oprește."
 Write-Host "Dacă botul nu răspunde și ai cont de firmă (Team sau Enterprise), Channels trebuie activat de Owner-ul organizației."
-claude --channels plugin:telegram@claude-plugins-official "Pornire. Citește fișierele de bootstrap din CLAUDE.md, apoi programează heartbeat-ul din config.json."
+# Promptul stă ÎNAINTEA lui --channels: --channels primește mai multe valori
+# și ar lua promptul drept al doilea canal (eroarea „--channels entries must be tagged”).
+claude "Pornire. Citește fișierele de bootstrap din CLAUDE.md, apoi programează heartbeat-ul din config.json." --channels plugin:telegram@claude-plugins-official

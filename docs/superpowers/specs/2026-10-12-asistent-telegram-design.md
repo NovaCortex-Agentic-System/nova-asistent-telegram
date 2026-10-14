@@ -87,7 +87,7 @@ mister-o-template-telegram/
 2. Verifică că `bun` există. Dacă nu, afișează comanda de instalare pentru sistemul respectiv și se opresc.
 3. Verifică că există `.env`-ul cu token în folderul de stare. Dacă nu, spun că trebuie rulat întâi `/onboarding` și se opresc.
 4. Setează `TELEGRAM_STATE_DIR` la `~/.claude/channels/<nume-agent>/`, unde `<nume-agent>` e numele folderului agentului.
-5. Pornesc `claude --channels plugin:telegram@claude-plugins-official`.
+5. Pornesc `claude "<prompt de pornire>" --channels plugin:telegram@claude-plugins-official`. Promptul stă înaintea lui `--channels`, care primește mai multe valori și ar lua promptul drept canal (găsit la prima instalare reală, 2026-10-13).
 
 Dacă sesiunea pornește dar Channels nu se activează, utilizatorul vede mesajul Claude Code. Ghidul acoperă cazul Team și Enterprise.
 
@@ -102,7 +102,7 @@ Dacă sesiunea pornește dar Channels nu se activează, utilizatorul vede mesaju
 
 - Agentul pornește în modul normal de permisiuni, nu cu skip.
 - Cererile de permisiune ajung pe Telegram cu butoane, prin releul de permisiuni al pluginului.
-- `.claude/settings.json` aprobă din start doar `bun scripts/*.ts` și comenzile de citire a clipboard-ului folosite la onboarding.
+- `.claude/settings.json` aprobă din start doar `bun scripts/*` și scrierea în memorie (`memory/`, `MEMORY.md`, `GROUND-TRUTH.md`), ca heartbeat-ul să nu ceară aprobare la fiecare 30 de minute. Memoria automată a Claude Code e oprită (`autoMemoryEnabled: false`), ca să nu concureze cu `memory/` a agentului.
 - `CONTRACT.md` rămâne granița de delegare scrisă.
 
 ### Accesul la bot

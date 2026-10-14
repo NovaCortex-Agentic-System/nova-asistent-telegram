@@ -23,6 +23,15 @@ describe("session-inject", () => {
     expect(a_doua.iesire).toBe("");
   });
 
+  test("tace cât timp IDENTITY.md e încă șablonul", () => {
+    const a = agentTemporar();
+    writeFileSync(join(a.dir, "IDENTITY.md"), "# [Numele agentului]");
+    writeFileSync(join(a.dir, "SOUL.md"), "suflet-test");
+    const r = ruleaza("session-inject.ts", { ...a, intrare: {} });
+    expect(r.cod).toBe(0);
+    expect(r.iesire).toBe("");
+  });
+
   test("nu cade dacă lipsesc fișierele", () => {
     const a = agentTemporar();
     const r = ruleaza("session-inject.ts", { ...a, intrare: {} });

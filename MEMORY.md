@@ -10,7 +10,7 @@ Structura sugerată: secțiuni tematice cu date.
 
 ## Preferințe și decizii
 
-<!-- Agentul adaugă automat intrări here pe măsură ce lucrați împreună -->
+<!-- Agentul adaugă automat intrări aici pe măsură ce lucrați împreună -->
 
 ## Fapte importante
 

@@ -7,8 +7,18 @@ description: "Configurarea agentului de la zero: identitate, reguli, despre om, 
 
 Îl ghidezi pe om pas cu pas să-și configureze agentul. Conversația are loc aici, în chatul Claude Code, nu pe Telegram (botul încă nu există).
 
-Reguli pentru toată durata:
-- O singură întrebare pe mesaj. Aștepți răspunsul real, nu inventezi.
+## Regula de bază: o singură întrebare pe mesaj
+
+Întrebările nu cad grămadă peste om. Fiecare mesaj al tău conține **cel mult o întrebare**, apoi te oprești și aștepți răspunsul.
+
+- Nu anunți dinainte lista de pași sau de întrebări care urmează. Omul vede doar pasul la care e.
+- Un raport de stare (ce ai găsit, ce ai scris) e scurt și se termină cu o singură întrebare sau cu niciuna.
+- Dacă omul a răspuns deja, în treacăt, la o întrebare de mai târziu (de exemplu și-a spus și ocupația când l-ai întrebat cum îl cheamă), nu o mai pui. Confirmi doar ce ai notat.
+- Exemplele din întrebări sunt, în practică, opțiuni: oamenii răspund des „ambele” sau „toate trei”. Dă 2-3 exemple care chiar merg ca alegeri, nu doar ca ilustrații.
+
+## Alte reguli pentru toată durata
+
+- Aștepți răspunsul real, nu inventezi.
 - După fiecare fișier scris, arăți pe scurt ce ai scris și întrebi dacă vrea să schimbe ceva.
 - Comenzile de terminal le dai una câte una, nu în blocuri de mai multe linii.
 - Tokenul botului nu apare niciodată în chat. Dacă omul îl lipește în chat, îi spui să nu mai facă asta, nu-l folosești și îi explici că trebuie să-l revoce din BotFather (`/revoke`) și să copieze unul nou.
@@ -23,7 +33,7 @@ Verifică și spune-i omului ce ai găsit:
 2. Bun: rulează `bun --version`.
 3. Tokenul: rulează `bun scripts/token.ts --exista` (cod 0 = salvat).
 
-Spune-i: „Am găsit deja: ... Configurăm acum: ...”. Sari peste pașii deja făcuți.
+Spune-i în cel mult două propoziții ce e deja gata, fără să enumeri pașii care urmează. Apoi treci direct la primul pas nefăcut. Sari peste pașii deja făcuți.
 
 ---
 
@@ -153,8 +163,8 @@ Scrie `USER.md` păstrând structura existentă a fișierului.
 ## Pasul 5: unelte (TOOLS.md)
 
 1. Notează în `TOOLS.md` că agentul comunică prin pluginul Telegram oficial (Channels).
-2. Întreabă: „Ai servere MCP instalate în Claude Code? (de exemplu căutare web, Notion, Gmail)”
-3. Întreabă: „Sunt alte programe pe care agentul ar trebui să le știe?”
+2. Uită-te ce servere MCP și conectori vezi în sesiunea asta și arată-i omului lista, grupată pe categorii (de exemplu email și calendar, documente, căutare web). Întreabă: „Pe care dintre ele să le folosească agentul?” Cele alese intră în `TOOLS.md`, cele excluse la „Nu am acces la”.
+3. Într-un mesaj separat, întreabă: „Sunt alte programe pe care agentul ar trebui să le știe?”
 
 Scrie `TOOLS.md` păstrând structura existentă.
 
@@ -166,11 +176,15 @@ Explică: „Cât timp e pornit, agentul face o rundă de verificări la fiecare
 
 Întreabă ce vrea să fie verificat la fiecare rundă. Adaugă răspunsurile la „Sarcini opționale”. Nu atinge cele două sarcini de bază.
 
+Sarcinile legate de o oră anume (de exemplu „rezumatul zilei la 19:30”) nu le pui în `HEARTBEAT.md`, ci ca intrare separată în `config.json`, cu câmpul `cron` (expresie cron cu ora locală, de exemplu `30 19 * * *`) și un `prompt` care spune exact ce are de făcut. Așa rulează la ora fixă, nu „la primul heartbeat după ora X”.
+
 ---
 
 ## Pasul 7: botul Telegram
 
-Ghidează-l, un pas pe mesaj:
+Întreabă întâi: „Ai deja un bot creat la BotFather?” Dacă da, îi ceri să copieze tokenul botului (la BotFather: `/mybots`, alegi botul, apoi API Token) și să-ți scrie „am copiat tokenul”. Treci direct la pasul 8.
+
+Dacă nu, ghidează-l, un pas pe mesaj:
 1. Deschide Telegram și caută **@BotFather** (are bifă albastră).
 2. Trimite-i `/newbot`.
 3. Alege un nume afișat (orice, poate avea spații).
@@ -201,12 +215,17 @@ Apoi rulează `bun scripts/dream-due.ts` o dată, ca să pornească numărătoar
 
 Explică-i: „Agentul pornește într-un terminal separat și trăiește cât e deschis terminalul acela. Chatul ăsta de configurare îl poți închide după.”
 
-Dă-i instrucțiunile pentru sistemul lui:
-1. În VS Code: meniul Terminal, apoi New Terminal.
-2. Mac: `./porneste.sh`
-3. Windows: `powershell -ExecutionPolicy Bypass -File .\porneste.ps1`
+Dă-i comanda pentru sistemul lui, **cu calea completă a folderului agentului** (o știi, e folderul în care rulezi). Terminalul nou din VS Code nu se deschide mereu în folderul agentului, iar cu calea completă comanda merge de oriunde.
 
-La prima pornire, Claude Code poate întreba dacă are încredere în folder. Răspunde da.
+1. În VS Code: meniul Terminal, apoi New Terminal.
+2. Mac: `"<calea completă>/porneste.sh"`
+3. Windows: `powershell -ExecutionPolicy Bypass -File "<calea completă>\porneste.ps1"`
+
+Scrie comanda cu calea reală deja completată, gata de copiat.
+
+La prima pornire, Claude Code întreabă dacă are încredere în folder. Trebuie să răspundă da: fără asta, permisiunile din setările agentului sunt ignorate și i se va cere aprobare chiar și pentru notițele zilnice.
+
+La pornire, agentul își citește fișierele și face primul heartbeat. Câteva zeci de secunde e ocupat, iar mesajele trimise între timp așteaptă la rând.
 
 ---
 
@@ -226,8 +245,10 @@ Explică de ce contează pasul 3: fără el, oricine găsește botul primește c
 
 Ghidează-l prin cele două teste și cere-i să-ți spună rezultatul:
 
-1. **Dus-întors:** scrie-i botului „salut”. Agentul trebuie să răspundă în personaj.
-2. **Permisiune:** scrie-i botului „creează fișierul test-permisiune.txt în folderul tău cu textul merge”. Pe Telegram trebuie să apară o cerere cu butoane. Apasă aprobă, apoi verifică că fișierul există. După test, fișierul poate fi șters.
+1. **Dus-întors:** scrie-i botului „salut”. Agentul trebuie să răspundă în personaj. Dacă tocmai lucra la ceva (pairing-ul, primul heartbeat), răspunsul poate întârzia până la un minut: mesajul așteaptă la rând până termină.
+2. **Permisiune:** scrie-i botului „creează fișierul test-permisiune.txt în rădăcina folderului tău cu textul merge”. Pe Telegram trebuie să apară o cerere cu butoane. Apasă aprobă, apoi verifică că fișierul există. După test, fișierul poate fi șters.
+
+Explică-i ce verifică testul 2: butoanele vin de la Claude Code, nu de la regulile din `SOUL.md`. Agentul are voie să scrie singur doar în memorie (`memory/`, `MEMORY.md`, `GROUND-TRUTH.md`). Orice alt fișier cere aprobare, chiar dacă `SOUL.md` îi permite să scrie liber în folderul lui. Așa testul arată sigur dacă aprobările ajung pe telefon.
 
 Dacă un test pică, deschide `GHID-INSTALARE.md`, secțiunea „Ce merge prost”, și caută simptomul.
 

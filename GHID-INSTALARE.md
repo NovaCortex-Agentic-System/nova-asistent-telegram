@@ -54,21 +54,27 @@ La final, BotFather îți dă un **token** de forma `123456789:AAH...`. **Copiaz
 
 ### Pasul 3: pornirea
 
-Agentul trăiește într-un terminal separat, nu în chatul de configurare. Deschide terminalul în VS Code (meniul Terminal, apoi New Terminal) și scrie comanda pentru sistemul tău.
+Agentul trăiește într-un terminal separat, nu în chatul de configurare. La finalul configurării, agentul îți dă comanda de pornire cu calea completă a folderului, gata de copiat. Deschide terminalul în VS Code (meniul Terminal, apoi New Terminal) și lipește comanda.
+
+Arată așa, cu calea ta în loc de `<calea agentului>`.
 
 Pe Mac:
 
 ```
-./porneste.sh
+"<calea agentului>/porneste.sh"
 ```
 
 Pe Windows:
 
 ```
-powershell -ExecutionPolicy Bypass -File .\porneste.ps1
+powershell -ExecutionPolicy Bypass -File "<calea agentului>\porneste.ps1"
 ```
 
-La prima pornire, Claude Code te întreabă dacă ai încredere în folder. Răspunde da.
+Calea completă contează: terminalul nou nu se deschide mereu în folderul agentului.
+
+La prima pornire, Claude Code te întreabă dacă ai încredere în folder. **Răspunde da.** Fără asta, agentul îți cere aprobare chiar și pentru notițele lui zilnice.
+
+În primele zeci de secunde după pornire, agentul își citește fișierele și face prima rundă de verificări. Mesajele trimise în timpul ăsta așteaptă la rând.
 
 Chatul de configurare îl poți închide acum.
 
@@ -92,8 +98,10 @@ Pasul 3 e obligatoriu. Fără el, oricine găsește botul primește coduri de co
 ### Pasul 5: verificarea
 
 Fă două teste:
-1. Scrie-i botului „salut”. Trebuie să-ți răspundă în personaj, cu numele și stilul stabilite la configurare.
-2. Scrie-i botului: „creează fișierul test-permisiune.txt în folderul tău cu textul merge”. Pe Telegram trebuie să apară un mesaj cu butoane care cere aprobarea ta. Aprobă. Fișierul trebuie să apară în folderul agentului. După test îl poți șterge.
+1. Scrie-i botului „salut”. Trebuie să-ți răspundă în personaj, cu numele și stilul stabilite la configurare. Dacă agentul tocmai lucra la ceva, răspunsul poate întârzia până la un minut.
+2. Scrie-i botului: „creează fișierul test-permisiune.txt în rădăcina folderului tău cu textul merge”. Pe Telegram trebuie să apară un mesaj cu butoane care cere aprobarea ta. Aprobă. Fișierul trebuie să apară în folderul agentului. După test îl poți șterge.
+
+De ce apar butoane la testul 2, chiar dacă i-ai dat voie agentului să scrie în folderul lui: regulile din `SOUL.md` spun ce are voie agentul să facă, iar butoanele sunt felul în care Claude Code îți cere confirmarea. Fără să te întrebe, agentul scrie doar în memoria lui. Pentru orice alt fișier, aprobarea vine pe telefon.
 
 Dacă ambele merg, agentul e gata.
 
@@ -130,11 +138,35 @@ Caută mai jos ce vezi pe ecran. Fiecare caz are cauza probabilă, cum verifici 
 
 **Faci:** pornești din nou cu comanda de la Pasul 3. Dacă ai cont de firmă, vezi și cazul următor.
 
+### Botul răspunde, dar cu întârziere, sau pare că nu răspunde
+
+**Cauza probabilă:** agentul era în mijlocul unei sarcini (la pornire, la pairing, la runda de verificări de la 30 de minute). Mesajele tale așteaptă la rând până termină. În terminalul agentului apar ca puse în așteptare.
+
+**Faci:** aștepți un minut. Dacă după câteva minute tot nu vine nimic, uită-te în terminalul agentului: dacă așteaptă o aprobare sau a dat o eroare, se vede acolo.
+
 ### Am cont de firmă și botul nu răspunde, deși agentul e pornit
 
 **Cauza probabilă:** Channels nu e activat în organizația ta.
 
 **Faci:** îi ceri Owner-ului organizației să activeze Channels din Organization settings, apoi Claude Code, apoi Channels. Până atunci, botul nu poate primi mesaje.
+
+### La pornire apare „--channels entries must be tagged”
+
+**Cauza:** ai o versiune mai veche a agentului, în care scriptul de pornire punea argumentele în ordinea pe care Claude Code n-o mai acceptă.
+
+**Faci:** în chatul Claude Code din folderul agentului scrii: „Adu ultima versiune a agentului de pe GitHub cu git pull, fără să-mi atingi fișierele de configurare.” Apoi pornești din nou.
+
+### Pe Windows apare „The argument '.\porneste.ps1' to the -File parameter does not exist”
+
+**Cauza probabilă:** terminalul s-a deschis în alt folder decât al agentului (de obicei în folderul tău de utilizator), iar comanda a căutat scriptul acolo. Uneori, după eroare, rămâi într-un PowerShell deschis în plus.
+
+**Faci:** scrie `exit` dacă a rămas un PowerShell deschis, apoi rulează comanda de pornire cu calea completă a folderului agentului, ca la Pasul 3. Dacă nu știi calea, în chatul Claude Code din folderul agentului scrie: „Dă-mi comanda de pornire cu calea completă.”
+
+### Agentul îmi cere aprobare pentru fiecare notiță pe care o scrie
+
+**Cauza probabilă:** la prima pornire n-ai confirmat că ai încredere în folder, iar Claude Code ignoră permisiunile din setările agentului.
+
+**Faci:** oprești agentul cu `/exit`, îl pornești din nou și, la întrebarea despre încredere, răspunzi da.
 
 ### La pornire apare „Lipsește Bun”
 
