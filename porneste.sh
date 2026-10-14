@@ -27,4 +27,7 @@ echo "Dacă botul nu răspunde și ai cont de firmă (Team sau Enterprise), Chan
 # și ar lua promptul drept al doilea canal (eroarea „--channels entries must be tagged”).
 # --permission-mode manual: modul normal, cu aprobări prin butoane pe Telegram, oricum ar fi
 # setat Claude Code pe calculatorul respectiv (auto mode sau alt mod implicit).
-exec claude "Pornire. Citește fișierele de bootstrap din CLAUDE.md, apoi programează heartbeat-ul din config.json." --permission-mode manual --channels plugin:telegram@claude-plugins-official
+# --settings .claude/pornire.json: pluginul Telegram e oprit peste tot (în cont și în folderul agentului)
+# și se activează doar aici. Altfel orice chat Claude Code îl încarcă fără token, pică, iar Claude Code
+# nu mai încearcă să-l conecteze timp de ~15 minute, nici în sesiunea agentului.
+exec claude "Pornire. Citește fișierele de bootstrap din CLAUDE.md, apoi programează heartbeat-ul din config.json." --permission-mode manual --settings .claude/pornire.json --channels plugin:telegram@claude-plugins-official

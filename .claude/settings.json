@@ -1,5 +1,8 @@
 {
   "autoMemoryEnabled": false,
+  "enabledPlugins": {
+    "telegram@claude-plugins-official": false
+  },
   "permissions": {
     "allow": [
       "Bash(bun scripts/*)",

@@ -47,6 +47,8 @@ După instalare, Bun e vizibil doar în terminalele noi. Spune-i omului să înc
 
 **Pluginul Telegram.** Cu acordul omului, rulezi `claude plugin install telegram@claude-plugins-official`. Dacă eșuează, îi ceri să scrie el în chat `/plugin install telegram@claude-plugins-official`.
 
+Imediat după instalare, tot cu acordul lui, rulezi `claude plugin disable telegram@claude-plugins-official --scope user`. Explică-i de ce, pe scurt: altfel pluginul pornește în orice chat Claude Code, din orice folder, pică fără token, iar Claude Code nu mai încearcă să-l conecteze vreo 15 minute, nici în sesiunea agentului. Scriptul de pornire îl activează doar pentru agent.
+
 ---
 
 ## Pasul 2: identitatea (IDENTITY.md)

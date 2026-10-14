@@ -144,6 +144,12 @@ Caută mai jos ce vezi pe ecran. Fiecare caz are cauza probabilă, cum verifici 
 
 **Faci:** aștepți un minut. Dacă după câteva minute tot nu vine nimic, uită-te în terminalul agentului: dacă așteaptă o aprobare sau a dat o eroare, se vede acolo.
 
+### Agentul a pornit, dar botul tace, iar în terminal apare „recent failure cached”
+
+**Cauza probabilă:** pluginul Telegram a picat mai devreme într-o altă sesiune Claude Code (de exemplu în chatul din VS Code) și Claude Code nu mai încearcă să-l conecteze vreo 15 minute. Repornirile făcute în timpul ăsta nu ajută.
+
+**Faci:** în terminalul agentului scrii `/mcp`, alegi serverul Telegram și ceri reconectarea. Dacă nu merge, aștepți 15 minute și pornești din nou. Ca să nu se repete, pluginul trebuie să fie oprit în cont și pornit doar de scriptul agentului. Configurarea face asta singură; dacă ai o instalare mai veche, în chatul Claude Code scrie: „Dezactivează pluginul Telegram la nivel de user, cu claude plugin disable.”
+
 ### Am cont de firmă și botul nu răspunde, deși agentul e pornit
 
 **Cauza probabilă:** Channels nu e activat în organizația ta.

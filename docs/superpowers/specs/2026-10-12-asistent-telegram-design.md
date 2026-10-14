@@ -87,7 +87,7 @@ mister-o-template-telegram/
 2. Verifică că `bun` există. Dacă nu, afișează comanda de instalare pentru sistemul respectiv și se opresc.
 3. Verifică că există `.env`-ul cu token în folderul de stare. Dacă nu, spun că trebuie rulat întâi `/onboarding` și se opresc.
 4. Setează `TELEGRAM_STATE_DIR` la `~/.claude/channels/<nume-agent>/`, unde `<nume-agent>` e numele folderului agentului.
-5. Pornesc `claude "<prompt de pornire>" --channels plugin:telegram@claude-plugins-official`. Promptul stă înaintea lui `--channels`, care primește mai multe valori și ar lua promptul drept canal (găsit la prima instalare reală, 2026-10-13).
+5. Pornesc `claude "<prompt de pornire>" --permission-mode manual --settings .claude/pornire.json --channels plugin:telegram@claude-plugins-official`. Promptul stă înaintea lui `--channels`, care primește mai multe valori și ar lua promptul drept canal (găsit la prima instalare reală, 2026-10-13). Pluginul e oprit în cont (onboarding-ul îl dezactivează la nivel de user) și în `.claude/settings.json`, iar `.claude/pornire.json` îl activează doar în sesiunea agentului: altfel orice chat Claude Code îl încărca fără token, pica, iar eșecul ținut minte ~15 minute bloca și agentul.
 
 Dacă sesiunea pornește dar Channels nu se activează, utilizatorul vede mesajul Claude Code. Ghidul acoperă cazul Team și Enterprise.
 

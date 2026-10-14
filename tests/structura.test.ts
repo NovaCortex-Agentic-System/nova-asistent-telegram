@@ -31,6 +31,12 @@ describe("settings.json", () => {
     expect(permise.filter((r) => r.startsWith("Edit(") || r.startsWith("Write("))).toHaveLength(3);
   });
 
+  test("pluginul Telegram e oprit în folderul agentului și pornit doar de .claude/pornire.json", () => {
+    expect(setari.enabledPlugins["telegram@claude-plugins-official"]).toBe(false);
+    const pornire = JSON.parse(citeste(".claude/pornire.json"));
+    expect(pornire.enabledPlugins["telegram@claude-plugins-official"]).toBe(true);
+  });
+
   test("are cele patru hook-uri", () => {
     expect(Object.keys(setari.hooks).sort()).toEqual(["PreCompact", "PreToolUse", "Stop", "UserPromptSubmit"]);
   });
@@ -108,6 +114,8 @@ describe("scripturile de pornire", () => {
       expect(linie).toMatch(/--channels plugin:telegram@claude-plugins-official\s*$/);
       // modul de permisiuni fixat, ca butoanele de aprobare să apară indiferent de setările calculatorului
       expect(linie).toContain("--permission-mode manual");
+      // pluginul se activează doar în sesiunea pornită de script
+      expect(linie).toContain("--settings .claude/pornire.json");
       expect(continut).toContain("TELEGRAM_STATE_DIR");
       expect(continut).toContain("bun scripts/token.ts --exista");
     }
