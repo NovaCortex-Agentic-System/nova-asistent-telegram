@@ -100,7 +100,7 @@ Dacă sesiunea pornește dar Channels nu se activează, utilizatorul vede mesaju
 
 ### Permisiuni
 
-- Agentul pornește în modul normal de permisiuni, nu cu skip.
+- Agentul pornește în modul normal de permisiuni, fixat explicit cu `--permission-mode manual` în scripturile de pornire (la prima instalare reală, sesiunea a moștenit auto mode de pe calculator și butoanele nu au apărut).
 - Cererile de permisiune ajung pe Telegram cu butoane, prin releul de permisiuni al pluginului.
 - `.claude/settings.json` aprobă din start doar `bun scripts/*` și scrierea în memorie (`memory/`, `MEMORY.md`, `GROUND-TRUTH.md`), ca heartbeat-ul să nu ceară aprobare la fiecare 30 de minute. Memoria automată a Claude Code e oprită (`autoMemoryEnabled: false`), ca să nu concureze cu `memory/` a agentului.
 - `CONTRACT.md` rămâne granița de delegare scrisă.

@@ -25,4 +25,6 @@ Write-Host "Pornesc agentul. Închiderea terminalului îl oprește."
 Write-Host "Dacă botul nu răspunde și ai cont de firmă (Team sau Enterprise), Channels trebuie activat de Owner-ul organizației."
 # Promptul stă ÎNAINTEA lui --channels: --channels primește mai multe valori
 # și ar lua promptul drept al doilea canal (eroarea „--channels entries must be tagged”).
-claude "Pornire. Citește fișierele de bootstrap din CLAUDE.md, apoi programează heartbeat-ul din config.json." --channels plugin:telegram@claude-plugins-official
+# --permission-mode manual: modul normal, cu aprobări prin butoane pe Telegram, oricum ar fi
+# setat Claude Code pe calculatorul respectiv (auto mode sau alt mod implicit).
+claude "Pornire. Citește fișierele de bootstrap din CLAUDE.md, apoi programează heartbeat-ul din config.json." --permission-mode manual --channels plugin:telegram@claude-plugins-official

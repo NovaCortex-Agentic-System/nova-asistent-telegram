@@ -106,6 +106,8 @@ describe("scripturile de pornire", () => {
       // --channels primește mai multe valori: un prompt pus după el e luat drept canal și pornirea pică.
       const linie = continut.split("\n").find((l) => /^\s*(exec\s+)?claude\s/.test(l)) ?? "";
       expect(linie).toMatch(/--channels plugin:telegram@claude-plugins-official\s*$/);
+      // modul de permisiuni fixat, ca butoanele de aprobare să apară indiferent de setările calculatorului
+      expect(linie).toContain("--permission-mode manual");
       expect(continut).toContain("TELEGRAM_STATE_DIR");
       expect(continut).toContain("bun scripts/token.ts --exista");
     }
