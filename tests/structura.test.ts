@@ -53,19 +53,38 @@ describe("settings.json", () => {
   });
 });
 
-describe("config.json și HEARTBEAT.md", () => {
+describe("config.json și heartbeat-ul", () => {
   test("config.json are doar heartbeat-ul de 30 de minute, fără supervisor", () => {
-    const config = JSON.parse(citeste("config.json"));
+    const config = JSON.parse(citeste("sabloane/config.json"));
     expect(config.crons).toHaveLength(1);
     expect(config.crons[0].interval).toBe("30m");
     expect(config.supervisor).toBeUndefined();
   });
 
-  test("HEARTBEAT.md verifică dream fără să-l pornească", () => {
-    const heartbeat = citeste("HEARTBEAT.md");
-    expect(heartbeat).toContain("bun scripts/dream-due.ts");
-    expect(heartbeat).toContain("--anuntat");
-    expect(heartbeat).toContain("Nu porni dream singur");
+  test("verificarea de dream e în CLAUDE.md, care se actualizează cu git pull, nu în HEARTBEAT.md", () => {
+    const claude = citeste("CLAUDE.md");
+    expect(claude).toContain("bun scripts/dream-due.ts");
+    expect(claude).toContain("--anuntat");
+    expect(claude).toContain("Nu porni dream singur");
+    expect(citeste("sabloane/HEARTBEAT.md")).not.toContain("dream-due");
+  });
+});
+
+describe("fișierele personale", () => {
+  const sabloane = readdirSync(join(RADACINA, "sabloane")).sort();
+  const ignorate = citeste(".gitignore").split(/\r?\n/).filter((l) => /^\/[^*]+$/.test(l)).map((l) => l.slice(1)).sort();
+
+  test("fiecare șablon are copia personală ignorată de git, și invers", () => {
+    expect(sabloane.length).toBe(10);
+    expect(ignorate).toEqual(sabloane);
+  });
+
+  test("ambele scripturi de pornire creează fișierele lipsă înainte de verificarea tokenului", () => {
+    for (const script of ["porneste.sh", "porneste.ps1"]) {
+      const continut = citeste(script);
+      expect(continut).toContain("bun scripts/pregateste.ts");
+      expect(continut.indexOf("bun scripts/pregateste.ts")).toBeLessThan(continut.indexOf("bun scripts/token.ts --exista"));
+    }
   });
 });
 

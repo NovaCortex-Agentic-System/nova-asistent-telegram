@@ -14,6 +14,9 @@ if ! command -v claude >/dev/null 2>&1; then
   exit 1
 fi
 
+# Fișierele personale care lipsesc se creează din sabloane/ (cele existente nu sunt atinse).
+bun scripts/pregateste.ts
+
 if ! bun scripts/token.ts --exista; then
   echo "Nu găsesc tokenul botului. Rulează întâi /onboarding în Claude Code, din folderul agentului."
   exit 1

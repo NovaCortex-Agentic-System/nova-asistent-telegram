@@ -115,7 +115,9 @@ Dacă ambele merg, agentul e gata.
 
 **Cât trăiește.** Cât e deschis terminalul și cât e treaz calculatorul. Când calculatorul intră în repaus, botul tace până la trezire.
 
-**Ce face singur.** La fiecare 30 de minute, cât e pornit, parcurge lista din `HEARTBEAT.md` și își notează ziua în `memory/`. Lista o poți completa oricând.
+**Ce face singur.** La fiecare 30 de minute, cât e pornit, își notează ziua în `memory/` și parcurge lista ta din `HEARTBEAT.md`. Lista o poți completa oricând.
+
+**Actualizarea.** Când apare o versiune nouă a agentului: în terminalul agentului scrii `/exit`, apoi în același folder rulezi `git pull` și pornești din nou. Fișierele tale (identitatea, regulile, memoria, `HEARTBEAT.md`, `config.json`) nu sunt atinse: git nu le urmărește. Șabloanele goale din care au fost create stau în folderul `sabloane/`; pe acelea nu le modifici.
 
 **Dream.** O dată la 5 zile, agentul îți scrie pe Telegram că e timpul să-i consolidezi memoria. Nu o face singur. Când vrei, îi scrii „rulează dream”. Îți trimite la final ce a schimbat.
 
@@ -160,7 +162,7 @@ Caută mai jos ce vezi pe ecran. Fiecare caz are cauza probabilă, cum verifici 
 
 **Cauza:** ai o versiune mai veche a agentului, în care scriptul de pornire punea argumentele în ordinea pe care Claude Code n-o mai acceptă.
 
-**Faci:** în chatul Claude Code din folderul agentului scrii: „Adu ultima versiune a agentului de pe GitHub cu git pull, fără să-mi atingi fișierele de configurare.” Apoi pornești din nou.
+**Faci:** în chatul Claude Code din folderul agentului scrii: „Adu ultima versiune a agentului de pe GitHub cu git pull.” Apoi pornești din nou.
 
 ### Pe Windows apare „The argument '.\porneste.ps1' to the -File parameter does not exist”
 

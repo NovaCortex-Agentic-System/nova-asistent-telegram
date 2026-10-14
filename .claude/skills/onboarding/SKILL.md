@@ -29,7 +29,7 @@ description: "Configurarea agentului de la zero: identitate, reguli, despre om, 
 
 Verifică și spune-i omului ce ai găsit:
 
-1. Ce fișiere sunt deja completate: `IDENTITY.md`, `SOUL.md`, `USER.md`, `CONTRACT.md`, `TOOLS.md`. Un fișier e necompletat dacă mai conține textul din șablon între paranteze drepte (de exemplu `[Numele agentului]`, `[Exemplu: ...]`, `[Prenumele tău]`).
+1. Ce fișiere sunt deja completate: `IDENTITY.md`, `SOUL.md`, `USER.md`, `CONTRACT.md`, `TOOLS.md`. Un fișier e necompletat dacă lipsește din rădăcina folderului sau dacă mai conține textul din șablon între paranteze drepte (de exemplu `[Numele agentului]`, `[Exemplu: ...]`, `[Prenumele tău]`). Pe o instalare nouă lipsesc toate: se creează la finalul pasului 1, din `sabloane/`.
 2. Bun: rulează `bun --version`.
 3. Tokenul: rulează `bun scripts/token.ts --exista` (cod 0 = salvat).
 
@@ -48,6 +48,8 @@ După instalare, Bun e vizibil doar în terminalele noi. Spune-i omului să înc
 **Pluginul Telegram.** Cu acordul omului, rulezi `claude plugin install telegram@claude-plugins-official`. Dacă eșuează, îi ceri să scrie el în chat `/plugin install telegram@claude-plugins-official`.
 
 Imediat după instalare, tot cu acordul lui, rulezi `claude plugin disable telegram@claude-plugins-official --scope user`. Explică-i de ce, pe scurt: altfel pluginul pornește în orice chat Claude Code, din orice folder, pică fără token, iar Claude Code nu mai încearcă să-l conecteze vreo 15 minute, nici în sesiunea agentului. Scriptul de pornire îl activează doar pentru agent.
+
+**Fișierele agentului.** Când Bun merge, rulezi `bun scripts/pregateste.ts`. Copiază din `sabloane/` în rădăcina folderului fișierele care lipsesc (`IDENTITY.md`, `SOUL.md`, `USER.md` și celelalte), fără să atingă ce există deja. Pe ele le completezi în pașii următori, niciodată pe cele din `sabloane/`. Explică-i omului într-o propoziție de ce: fișierele din rădăcină sunt ale lui și git nu le urmărește, așa că actualizările agentului nu le ating.
 
 ---
 
@@ -176,7 +178,7 @@ Scrie `TOOLS.md` păstrând structura existentă.
 
 Explică: „Cât timp e pornit, agentul face o rundă de verificări la fiecare 30 de minute, după lista din HEARTBEAT.md.”
 
-Întreabă ce vrea să fie verificat la fiecare rundă. Adaugă răspunsurile la „Sarcini opționale”. Nu atinge cele două sarcini de bază.
+Întreabă ce vrea să fie verificat la fiecare rundă. Adaugă răspunsurile la „Sarcinile tale”. Sarcinile de bază (memoria zilnică, anunțul de dream) nu intră aici: le face agentul oricum, după `CLAUDE.md`.
 
 Sarcinile legate de o oră anume (de exemplu „rezumatul zilei la 19:30”) nu le pui în `HEARTBEAT.md`, ci ca intrare separată în `config.json`, cu câmpul `cron` (expresie cron cu ora locală, de exemplu `30 19 * * *`) și un `prompt` care spune exact ce are de făcut. Așa rulează la ora fixă, nu „la primul heartbeat după ora X”.
 

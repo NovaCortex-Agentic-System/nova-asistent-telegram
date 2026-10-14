@@ -9,6 +9,7 @@ const LUNG = "Am terminat analiza cerută și am pregătit un rezumat cu cele tr
 describe("session-inject", () => {
   test("injectează fișierele prima dată, apoi tace în aceeași oră", () => {
     const a = agentTemporar();
+    writeFileSync(join(a.dir, "IDENTITY.md"), "# Ana");
     writeFileSync(join(a.dir, "SOUL.md"), "suflet-test");
     writeFileSync(join(a.dir, "USER.md"), "om-test");
     writeFileSync(join(a.dir, "MEMORY.md"), "memorie-test");
@@ -32,8 +33,17 @@ describe("session-inject", () => {
     expect(r.iesire).toBe("");
   });
 
-  test("nu cade dacă lipsesc fișierele", () => {
+  test("tace dacă IDENTITY.md lipsește (agent încă neconfigurat)", () => {
     const a = agentTemporar();
+    writeFileSync(join(a.dir, "SOUL.md"), "suflet-test");
+    const r = ruleaza("session-inject.ts", { ...a, intrare: {} });
+    expect(r.cod).toBe(0);
+    expect(r.iesire).toBe("");
+  });
+
+  test("nu cade dacă lipsesc celelalte fișiere", () => {
+    const a = agentTemporar();
+    writeFileSync(join(a.dir, "IDENTITY.md"), "# Ana");
     const r = ruleaza("session-inject.ts", { ...a, intrare: {} });
     expect(r.cod).toBe(0);
     expect(r.iesire).toContain("CONTEXT DE MEMORIE");

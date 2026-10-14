@@ -83,7 +83,7 @@ jobs:
         shell: bash
         run: |
           echo '{"session_id":"ci","tool_name":"Bash","tool_input":{"command":"ls"}}' | bun scripts/loop-detector.ts
-          # cât IDENTITY.md e șablon, hook-ul tace; după onboarding injectează contextul
+          # cât IDENTITY.md lipsește (clonă proaspătă), hook-ul tace; după onboarding injectează contextul
           test -z "$(echo '{}' | bun scripts/session-inject.ts)"
           echo "# Ana" > IDENTITY.md
           echo '{}' | bun scripts/session-inject.ts | grep -q "CONTEXT DE MEMORIE"

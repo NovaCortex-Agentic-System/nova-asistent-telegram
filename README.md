@@ -29,10 +29,11 @@ Channels e în research preview. Pe planurile Team și Enterprise trebuie activa
 | Fișier | Rol |
 |---|---|
 | `CLAUDE.md` | Contractul agentului: ce citește la pornire, cum răspunde pe Telegram, memoria, heartbeat-ul |
-| `IDENTITY.md`, `SOUL.md`, `CONTRACT.md`, `USER.md`, `TOOLS.md` | Cine e agentul, cum se poartă, ce are voie, despre tine, ce unelte are |
+| `sabloane/` | Variantele goale ale fișierelor personale. Onboarding-ul le copiază în rădăcină, unde git nu le mai urmărește, ca `git pull` să nu se lovească de ele |
+| `IDENTITY.md`, `SOUL.md`, `CONTRACT.md`, `USER.md`, `TOOLS.md` | Cine e agentul, cum se poartă, ce are voie, despre tine, ce unelte are (create la onboarding) |
 | `MEMORY.md`, `memory/` | Memoria pe termen lung și jurnalele zilnice |
 | `DECISIONS.md`, `GROUND-TRUTH.md` | Decizii permanente și starea verificată a sistemelor |
-| `HEARTBEAT.md`, `config.json` | Ce face agentul la fiecare 30 de minute |
+| `HEARTBEAT.md`, `config.json` | Sarcinile tale de la fiecare heartbeat și sarcinile la oră fixă (cele de bază sunt în `CLAUDE.md`) |
 | `porneste.sh`, `porneste.ps1` | Pornirea pe Mac, respectiv pe Windows |
 | `scripts/` | Hook-urile și uneltele agentului, în TypeScript, rulate cu Bun |
 | `.claude/skills/` | `onboarding`, `dream`, `skill-optimizer` |

@@ -19,7 +19,10 @@ Dacă nu le-ai citit pe toate în sesiunea asta, te oprești și le citești ACU
 
 **Fișierele astea SUNT identitatea ta. Fără ele ești un asistent generic.**
 
-Dacă `IDENTITY.md` conține încă textul din șablon între paranteze drepte (de exemplu `[Numele agentului]`), agentul nu e configurat: spune-i omului să ruleze `/onboarding` și nu face altceva până atunci.
+Dacă `IDENTITY.md` lipsește sau conține încă textul din șablon între paranteze drepte (de exemplu `[Numele agentului]`), agentul nu e configurat: spune-i omului să ruleze `/onboarding` și nu face altceva până atunci.
+
+### Fișierele tale și șabloanele
+Fișierele de mai sus sunt ale omului tău și git nu le urmărește. Variantele lor goale stau în `sabloane/`. Dacă vreunul lipsește, rulezi `bun scripts/pregateste.ts`, care le copiază din `sabloane/` doar pe cele care lipsesc. Nu scrii niciodată în `sabloane/`: acolo e șablonul, care se actualizează cu `git pull`.
 
 ---
 
@@ -95,10 +98,17 @@ Când omul tău spune ceva care e o **corectură** („nu asta”, „nu mai fac
 
 ## Heartbeat
 
-O sarcină `/loop` rulează la 30 de minute și îți cere să citești `HEARTBEAT.md`. Când vine:
-1. Citești `HEARTBEAT.md` și faci fiecare sarcină de acolo.
-2. Citești memoria de azi pentru context.
-3. Notezi în memoria de azi ce s-a întâmplat demn de reținut.
+O sarcină `/loop` rulează la 30 de minute și îți cere un heartbeat. Când vine:
+1. Citești memoria de azi pentru context.
+2. Faci sarcinile de bază de mai jos.
+3. Citești `HEARTBEAT.md` și faci fiecare sarcină a omului tău de acolo.
+4. Notezi în memoria de azi ce s-a întâmplat demn de reținut.
+
+Sarcinile de bază, la fiecare heartbeat:
+- Actualizezi memoria de azi (`memory/{data de azi}.md`) cu ce s-a întâmplat de la ultimul heartbeat.
+- Rulezi `bun scripts/dream-due.ts`, singur pe linie (fără alte comenzi înlănțuite, ca să nu ceară aprobare). Dacă afișează `ANUNTA`, îi trimiți omului tău pe Telegram: „Au trecut 5 zile de la ultima consolidare a memoriei. Rulează dream când ai un moment.”, apoi rulezi `bun scripts/dream-due.ts --anuntat`. Nu porni dream singur.
+
+Sarcinile de bază stau aici, nu în `HEARTBEAT.md`: `HEARTBEAT.md` e al omului tău, iar actualizările agentului ajung doar în `CLAUDE.md`. Dacă găsești în `HEARTBEAT.md` o copie mai veche a lor, nu le faci de două ori.
 
 ---
 
@@ -106,7 +116,7 @@ O sarcină `/loop` rulează la 30 de minute și îți cere să citești `HEARTBE
 
 Dream **nu pornește niciodată singur.** Îl pornește doar omul tău, când îți cere „rulează dream” sau „consolidează memoria”.
 
-- Evidența o ține `bun scripts/dream-due.ts`, rulat din heartbeat. După 5 zile de la ultima consolidare, îl anunți o singură dată pe Telegram (vezi `HEARTBEAT.md`).
+- Evidența o ține `bun scripts/dream-due.ts`, rulat din heartbeat. După 5 zile de la ultima consolidare, îl anunți o singură dată pe Telegram (vezi secțiunea Heartbeat).
 - Când omul tău cere dream: citești `.claude/skills/dream/SKILL.md` și îl rulezi ca subagent, în aceeași sesiune.
 - La final, dream rulează `bun scripts/dream-due.ts --gata`, care resetează numărătoarea.
 

@@ -2,6 +2,19 @@
 .env
 .credentials/
 
+# Fișierele personale ale agentului: se creează din sabloane/ la onboarding
+# (bun scripts/pregateste.ts) și nu sunt urmărite, ca git pull să nu se lovească de ele.
+/IDENTITY.md
+/SOUL.md
+/CONTRACT.md
+/USER.md
+/TOOLS.md
+/MEMORY.md
+/DECISIONS.md
+/GROUND-TRUTH.md
+/HEARTBEAT.md
+/config.json
+
 # Generate de agent
 memory/*
 !memory/.gitkeep

@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "interval": "30m",
+      "prompt": "Heartbeat. Fă sarcinile de bază din secțiunea Heartbeat a CLAUDE.md, apoi pe cele din HEARTBEAT.md."
+    }
+  ]
+}

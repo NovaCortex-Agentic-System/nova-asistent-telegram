@@ -13,6 +13,9 @@ if (-not (Get-Command claude -ErrorAction SilentlyContinue)) {
   exit 1
 }
 
+# Fișierele personale care lipsesc se creează din sabloane/ (cele existente nu sunt atinse).
+bun scripts/pregateste.ts
+
 bun scripts/token.ts --exista
 if ($LASTEXITCODE -ne 0) {
   Write-Host "Nu găsesc tokenul botului. Rulează întâi /onboarding în Claude Code, din folderul agentului."

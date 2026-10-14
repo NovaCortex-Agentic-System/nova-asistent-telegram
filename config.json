@@ -1,8 +1,0 @@
-{
-  "crons": [
-    {
-      "interval": "30m",
-      "prompt": "Heartbeat. Citește HEARTBEAT.md și fă fiecare sarcină de acolo. Citește și memory/{data de azi}.md pentru context. Notează în memoria de azi ce s-a întâmplat demn de reținut."
-    }
-  ]
-}
