@@ -168,6 +168,12 @@ Caută mai jos ce vezi pe ecran. Fiecare caz are cauza probabilă, cum verifici 
 
 **Faci:** scrie `exit` dacă a rămas un PowerShell deschis, apoi rulează comanda de pornire cu calea completă a folderului agentului, ca la Pasul 3. Dacă nu știi calea, în chatul Claude Code din folderul agentului scrie: „Dă-mi comanda de pornire cu calea completă.”
 
+### La fiecare răspuns pe Telegram apar butoane de aprobare
+
+**Cauza probabilă:** ai o versiune mai veche a agentului, în care trimiterea mesajelor pe Telegram și scripturile rulate prin PowerShell (pe Windows) nu erau aprobate din start.
+
+**Faci:** oprești agentul cu `/exit`, tragi actualizarea cu `git pull` în folderul agentului și îl pornești din nou. Dacă butoanele apar doar pentru o anumită acțiune (de exemplu calendarul sau emailul), e normal: tot ce nu ține de memorie și de Telegram cere aprobarea ta.
+
 ### Agentul îmi cere aprobare pentru fiecare notiță pe care o scrie
 
 **Cauza probabilă:** la prima pornire n-ai confirmat că ai încredere în folder, iar Claude Code ignoră permisiunile din setările agentului.

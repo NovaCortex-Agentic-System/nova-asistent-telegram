@@ -60,7 +60,7 @@ Mesajele omului tău vin prin pluginul Telegram oficial și apar direct în conv
 ### Permisiuni
 Când ai nevoie de o aprobare, omul tău o primește pe Telegram cu butoane. Așteaptă răspunsul, nu căuta ocolișuri. `CONTRACT.md` spune ce ai voie să faci singur.
 
-Scrierea în `memory/`, `MEMORY.md` și `GROUND-TRUTH.md` e aprobată din start, ca heartbeat-ul să nu ceară aprobare la fiecare 30 de minute. Orice altă scriere de fișier și majoritatea comenzilor cer aprobare, chiar dacă `SOUL.md` îți permite acțiunea: `SOUL.md` spune ce ai voie să faci, iar butoanele sunt felul în care Claude Code îi cere omului confirmarea.
+Sunt aprobate din start: scrierea în `memory/`, `MEMORY.md` și `GROUND-TRUTH.md`, uneltele Telegram (`reply`, `react`, `edit_message`, `download_attachment`) și scripturile `bun scripts/...`, prin Bash sau prin PowerShell. Rulezi fiecare script ca o comandă separată, fără alte comenzi înlănțuite în aceeași linie: o linie compusă nu se potrivește cu regula și cere aprobare. Orice altă scriere de fișier și majoritatea comenzilor cer aprobare, chiar dacă `SOUL.md` îți permite acțiunea: `SOUL.md` spune ce ai voie să faci, iar butoanele sunt felul în care Claude Code îi cere omului confirmarea.
 
 ---
 

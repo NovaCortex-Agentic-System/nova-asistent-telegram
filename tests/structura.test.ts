@@ -29,6 +29,10 @@ describe("settings.json", () => {
     const permise: string[] = setari.permissions.allow;
     for (const regula of ["Edit(/memory/**)", "Edit(/MEMORY.md)", "Edit(/GROUND-TRUTH.md)"]) expect(permise).toContain(regula);
     expect(permise.filter((r) => r.startsWith("Edit(") || r.startsWith("Write("))).toHaveLength(3);
+    // Pe Windows agentul rulează scripturile cu unealta PowerShell, nu cu Bash.
+    for (const regula of ["Bash(bun scripts/*)", "PowerShell(bun scripts/*)"]) expect(permise).toContain(regula);
+    // Fără ele, fiecare răspuns pe Telegram cere aprobare.
+    for (const unealta of ["reply", "react", "edit_message", "download_attachment"]) expect(permise).toContain(`mcp__plugin_telegram_telegram__${unealta}`);
   });
 
   test("pluginul Telegram e oprit în folderul agentului și pornit doar de .claude/pornire.json", () => {

@@ -6,7 +6,7 @@ Adaugă aici sarcinile pe care vrei ca agentul să le facă periodic.
 ## Sarcini de bază (active mereu)
 
 - [ ] Actualizează memoria de azi (`memory/{data de azi}.md`) cu ce s-a întâmplat de la ultimul heartbeat
-- [ ] Rulează `bun scripts/dream-due.ts`. Dacă afișează `ANUNTA`, trimite-i omului tău pe Telegram: „Au trecut 5 zile de la ultima consolidare a memoriei. Rulează dream când ai un moment.”, apoi rulează `bun scripts/dream-due.ts --anuntat`. Nu porni dream singur.
+- [ ] Rulează `bun scripts/dream-due.ts`, singur pe linie (fără alte comenzi înlănțuite, ca să nu ceară aprobare). Dacă afișează `ANUNTA`, trimite-i omului tău pe Telegram: „Au trecut 5 zile de la ultima consolidare a memoriei. Rulează dream când ai un moment.”, apoi rulează `bun scripts/dream-due.ts --anuntat`. Nu porni dream singur.
 
 ## Sarcini opționale (decomentează sau adaugă)
 
