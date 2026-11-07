@@ -30,7 +30,23 @@ describe("settings.json", () => {
     for (const regula of ["Edit(/memory/**)", "Edit(/invatat/**)", "Edit(/MEMORY.md)", "Edit(/GROUND-TRUTH.md)"]) expect(permise).toContain(regula);
     expect(permise.filter((r) => r.startsWith("Edit(") || r.startsWith("Write("))).toHaveLength(4);
     // Pe Windows agentul rulează scripturile cu unealta PowerShell, nu cu Bash.
-    for (const regula of ["Bash(bun scripts/*)", "PowerShell(bun scripts/*)"]) expect(permise).toContain(regula);
+    // Doar forme exacte: un wildcard ar accepta `bun scripts/../memory/x.ts` sau `bun test --preload`,
+    // adică orice cod scris de model în memory/, rulat fără aprobare (verificat pe Windows, 2026-11-07).
+    const scripturi = [
+      "bun scripts/destinatar.ts",
+      "bun scripts/dream-due.ts",
+      "bun scripts/dream-due.ts --anuntat",
+      "bun scripts/dream-due.ts --gata",
+      "bun scripts/pregateste.ts",
+      "bun scripts/token.ts --exista",
+    ];
+    for (const comanda of scripturi) for (const unealta of ["Bash", "PowerShell"]) expect(permise).toContain(`${unealta}(${comanda})`);
+    const executie = permise.filter((r) => r.startsWith("Bash(") || r.startsWith("PowerShell("));
+    expect(executie).toHaveLength(scripturi.length * 2);
+    for (const regula of executie) {
+      expect(regula).not.toContain("*");
+      expect(regula).not.toContain("bun test");
+    }
     // Fără ele, fiecare răspuns pe Telegram cere aprobare.
     for (const unealta of ["reply", "react", "edit_message", "download_attachment"]) expect(permise).toContain(`mcp__plugin_telegram_telegram__${unealta}`);
   });
@@ -133,6 +149,18 @@ describe("curățenia față de template-ul vechi", () => {
       const continut = readFileSync(cale, "utf8");
       for (const termen of eliminate) {
         if (continut.includes(termen)) throw new Error(`${relative(RADACINA, cale)} conține încă „${termen}”`);
+      }
+    }
+  });
+
+  test("comenzile de instalare descarcă doar prin https", () => {
+    // Fără schemă, PowerShell 5.1 face cererea pe http:// și `| iex` rulează orice răspunde rețeaua (verificat pe Windows, 2026-11-07).
+    for (const cale of fisiere(RADACINA)) {
+      if (cale.endsWith("structura.test.ts")) continue;
+      for (const linie of readFileSync(cale, "utf8").split("\n")) {
+        if (!/\|\s*(iex|bash|sh)\b/.test(linie)) continue;
+        const url = linie.match(/(?:irm|curl[^|]*?)\s+(\S*(?:\.sh|\.ps1|\/install)\S*)/);
+        if (url && !url[1].startsWith("https://")) throw new Error(`${relative(RADACINA, cale)}: instalare fără https: ${linie.trim()}`);
       }
     }
   });

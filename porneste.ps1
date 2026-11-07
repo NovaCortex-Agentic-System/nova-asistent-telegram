@@ -4,7 +4,7 @@ Set-Location $PSScriptRoot
 
 if (-not (Get-Command bun -ErrorAction SilentlyContinue)) {
   Write-Host "Lipsește Bun. Instalează-l cu comanda de mai jos, apoi deschide un terminal nou și rulează din nou porneste.ps1"
-  Write-Host 'powershell -c "irm bun.sh/install.ps1 | iex"'
+  Write-Host 'powershell -c "irm https://bun.sh/install.ps1 | iex"'
   exit 1
 }
 

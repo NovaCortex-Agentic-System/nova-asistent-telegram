@@ -41,7 +41,7 @@ Spune-i în cel mult două propoziții ce e deja gata, fără să enumeri pașii
 
 **Bun.** Dacă lipsește, explică-i că pluginul Telegram are nevoie de el și cere-i acordul să-l instalezi. Cu acord, rulezi comanda potrivită sistemului:
 - Mac: `curl -fsSL https://bun.sh/install | bash`
-- Windows (PowerShell): `powershell -c "irm bun.sh/install.ps1 | iex"`
+- Windows (PowerShell): `powershell -c "irm https://bun.sh/install.ps1 | iex"`
 
 După instalare, Bun e vizibil doar în terminalele noi. Spune-i omului să închidă și să redeschidă VS Code dacă `bun --version` tot nu merge.
 
